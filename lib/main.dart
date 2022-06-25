@@ -5,8 +5,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
- 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,13 +15,12 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Hellow'),),
+      body: Center(
+        child: Text('and this is on ios and web and android'),
+      ),
     );
   }
 }
