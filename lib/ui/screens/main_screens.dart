@@ -1,3 +1,5 @@
+import 'package:flight_guh_02/ui/screens/home_screen.dart';
+import 'package:flight_guh_02/ui/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../shared/theme.dart';
@@ -9,11 +11,18 @@ class MainScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     /** * HIDE system overlay android on bottom */
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: kTransparentColor));
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: Stack(children: [Text('Main Page'), customBottomNavigation()]),
+      body: Stack(children: [buildContent(), customBottomNavigation()]),
     );
   }
+}
+
+Widget buildContent() {
+  return HomeScreen();
 }
 
 Widget customBottomNavigation() {
@@ -40,92 +49,17 @@ Widget customBottomNavigation() {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           /*NAVIGATION ITEM BAR HOME*/
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/icon_home.png'))),
-              ),
-              Container(
-                width: 30,
-                height: 2,
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(defaultMargin)),
-              )
-            ],
+          CustomBottomNavigationItem(
+            imageUrl: 'assets/icon_home.png',
+            isSelected: true,
           ),
 
           /*NAVIGATION ITEM BAR BOOKING*/
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/icon_booking.png'))),
-              ),
-              Container(
-                width: 30,
-                height: 2,
-                decoration: BoxDecoration(
-                    color: kTransparentColor,
-                    borderRadius: BorderRadius.circular(defaultMargin)),
-              )
-            ],
-          ),
-
+          CustomBottomNavigationItem(imageUrl: 'assets/icon_booking.png'),
           /*NAVIGATION ITEM BAR card*/
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/icon_card.png'))),
-              ),
-              Container(
-                width: 30,
-                height: 2,
-                decoration: BoxDecoration(
-                    color: kTransparentColor,
-                    borderRadius: BorderRadius.circular(defaultMargin)),
-              )
-            ],
-          ),
-
+          CustomBottomNavigationItem(imageUrl: 'assets/icon_card.png'),
           /*NAVIGATION ITEM BAR SETTINGS*/
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/icon_settings.png'))),
-              ),
-              Container(
-                width: 30,
-                height: 2,
-                decoration: BoxDecoration(
-                    color: kTransparentColor,
-                    borderRadius: BorderRadius.circular(defaultMargin)),
-              )
-            ],
-          )
+          CustomBottomNavigationItem(imageUrl: 'assets/icon_settings.png'),
         ],
       ),
     ),

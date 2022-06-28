@@ -1,4 +1,8 @@
+import 'package:flight_guh_02/ui/widgets/custom_button.dart';
+import 'package:flight_guh_02/ui/widgets/custom_tac_button.dart';
+import 'package:flight_guh_02/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../shared/theme.dart';
 
 class SignUpScreens extends StatelessWidget {
@@ -19,29 +23,22 @@ class SignUpScreens extends StatelessWidget {
       );
     }
 
+    Widget submitButton() {
+      return CustomButton(
+        title: 'Get Started',
+        width: double.infinity,
+        height: 55,
+        onPressed: () {
+          Navigator.pushNamed(context, '/bonus');
+        },
+      );
+    }
+
     Widget inputSection() {
       Widget emailInput() {
-        return Container(
-          margin: EdgeInsets.only(bottom: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Email Address'),
-              SizedBox(
-                height: 6,
-              ),
-              TextFormField(
-                  cursorColor: kBlackColor,
-                  decoration: InputDecoration(
-                      hintText: 'Your Email Address',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultRadius),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(defaultRadius),
-                          borderSide: BorderSide(color: kPrimaryColor)))),
-            ],
-          ),
+        return CustomTextFormField(
+          title: 'Email Address',
+          hintText: 'Your Email Address',
         );
       }
 
@@ -60,7 +57,7 @@ class SignUpScreens extends StatelessWidget {
               emailInput(),
               passwordInput(),
               hobbyInput(),
-              submitButton(context),
+              submitButton(),
               tacButton()
             ],
           ),
@@ -68,6 +65,8 @@ class SignUpScreens extends StatelessWidget {
       );
     }
 
+    /** * HIDE system overlay android on bottom */
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     //* BODY SCREENS SIGNUP
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -81,113 +80,25 @@ class SignUpScreens extends StatelessWidget {
   }
 
   Widget fullnameInput() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Full Name'),
-          SizedBox(
-            height: 6,
-          ),
-          TextFormField(
-              cursorColor: kBlackColor,
-              decoration: InputDecoration(
-                  hintText: 'Your fullname',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultRadius),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultRadius),
-                      borderSide: BorderSide(color: kPrimaryColor)))),
-        ],
-      ),
-    );
+    return CustomTextFormField(title: 'Fullname', hintText: 'Your Fullname');
   }
 }
 
 Widget passwordInput() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 15),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Password'),
-        SizedBox(
-          height: 6,
-        ),
-        TextFormField(
-            cursorColor: kBlackColor,
-            obscureText: true,
-            decoration: InputDecoration(
-                hintText: 'Your Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultRadius),
-                    borderSide: BorderSide(color: kPrimaryColor)))),
-      ],
-    ),
+  return CustomTextFormField(
+    title: 'Password',
+    hintText: 'Your Password',
+    obsecureText: true,
   );
 }
 
 Widget hobbyInput() {
-  return Container(
-    margin: EdgeInsets.only(bottom: 30),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Hobby'),
-        SizedBox(
-          height: 6,
-        ),
-        TextFormField(
-            cursorColor: kBlackColor,
-            decoration: InputDecoration(
-                hintText: 'Your Hobby',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultRadius),
-                    borderSide: BorderSide(color: kPrimaryColor)))),
-      ],
-    ),
-  );
-}
-
-Widget submitButton(BuildContext context) {
-  return Container(
-    width: double.infinity,
-    height: 55,
-    child: TextButton(
-      onPressed: () {
-        Navigator.pushNamed(context, '/bonus');
-      },
-      style: TextButton.styleFrom(
-          backgroundColor: kPrimaryColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(defaultRadius))),
-      child: Text(
-        'Get Started',
-        style: whiteTextStyle.copyWith(
-            fontSize: 18, fontWeight: bold, letterSpacing: 1.25),
-      ),
-    ),
-  );
+  return CustomTextFormField(title: 'Hobby', hintText: 'Your Hobby');
 }
 
 Widget tacButton() {
-  return Container(
-    alignment: Alignment.center,
+  return CustomTacButton(
+    text: 'Terms and Conditions',
     margin: EdgeInsets.only(top: 50, bottom: 70),
-    child: Text(
-      'Terms and Conditions',
-      style: greyTextStyle.copyWith(
-          fontSize: 16,
-          fontWeight: light,
-          decoration: TextDecoration.underline),
-    ),
   );
 }

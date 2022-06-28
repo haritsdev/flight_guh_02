@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flight_guh_02/ui/screens/get_started_screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../shared/theme.dart';
 
 class SplashScreens extends StatefulWidget {
@@ -21,6 +22,8 @@ class _SplashScreensState extends State<SplashScreens> {
 
   @override
   Widget build(BuildContext context) {
+    /** * HIDE system overlay android on bottom */
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Center(

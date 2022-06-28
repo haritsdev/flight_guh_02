@@ -1,13 +1,31 @@
+import 'package:flight_guh_02/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../shared/theme.dart';
 
-class GetStartedScreens extends StatelessWidget {
+class GetStartedScreens extends StatefulWidget {
   const GetStartedScreens({Key? key}) : super(key: key);
 
   @override
+  _GetStartedScreensState createState() => _GetStartedScreensState();
+}
+
+class _GetStartedScreensState extends State<GetStartedScreens> {
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: kTransparentColor));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    /** * HIDE system overlay android on bottom */
+
     double heightOfScreens = MediaQuery.of(context).size.height;
     double widthOfScreens = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -38,25 +56,13 @@ class GetStartedScreens extends StatelessWidget {
                       whiteTextStyle.copyWith(fontSize: 16, fontWeight: light),
                   textAlign: TextAlign.center,
                 ),
-                Container(
+                CustomButton(
+                  title: 'Get Started',
                   width: 220,
-                  height: 50,
-                  margin: EdgeInsets.only(top: 40, bottom: 80),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/sign-up');
-                    },
-                    style: TextButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(defaultRadius))),
-                    child: Text(
-                      'Get Started',
-                      style: whiteTextStyle.copyWith(
-                          fontSize: 16, fontWeight: medium),
-                    ),
-                  ),
+                  margin: EdgeInsets.only(top: 50, bottom: 70),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/sign-up');
+                  },
                 )
               ],
             ),
