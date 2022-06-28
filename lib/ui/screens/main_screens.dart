@@ -1,4 +1,6 @@
 import 'package:flight_guh_02/ui/screens/home_screen.dart';
+import 'package:flight_guh_02/ui/screens/transaction_screens.dart';
+import 'package:flight_guh_02/ui/screens/wallet_screens.dart';
 import 'package:flight_guh_02/ui/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

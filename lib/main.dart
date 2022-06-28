@@ -1,3 +1,4 @@
+import 'package:flight_guh_02/cubit/page_cubit.dart';
 import 'package:flight_guh_02/ui/screens/bonus_screens.dart';
 import 'package:flight_guh_02/ui/screens/checkout_screens.dart';
 import 'package:flight_guh_02/ui/screens/choose_seat_screens.dart';
@@ -8,6 +9,7 @@ import 'package:flight_guh_02/ui/screens/splash_screens.dart';
 import 'package:flight_guh_02/ui/screens/success_checkout_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'shared/theme.dart';
 
@@ -28,18 +30,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => SplashScreens(),
-        '/get-started': (context) => GetStartedScreens(),
-        '/sign-up': (context) => SignUpScreens(),
-        '/bonus': (context) => BonusScreens(),
-        '/choose-seat': (context) => ChooseSeat(),
-        '/checkout': (context) => CheckoutScreen(),
-        '/success-checkout': (context) => SuccessCheckoutScreen(),
-        '/main': (context) => MainScreens(),
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PageCubit(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => SplashScreens(),
+          '/get-started': (context) => GetStartedScreens(),
+          '/sign-up': (context) => SignUpScreens(),
+          '/bonus': (context) => BonusScreens(),
+          '/choose-seat': (context) => ChooseSeat(),
+          '/checkout': (context) => CheckoutScreen(),
+          '/success-checkout': (context) => SuccessCheckoutScreen(),
+          '/main': (context) => MainScreens(),
+        },
+      ),
     );
   }
 }
