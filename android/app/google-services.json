@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "360375269444",
+    "project_id": "teguh-flight",
+    "storage_bucket": "teguh-flight.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360375269444:android:1ede5946e07e8a93dba411",
+        "android_client_info": {
+          "package_name": "com.teguh.flight_guh_02"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360375269444-44fnk3k18lhd2qhjp79iif42h73n9u5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_29ltPO_-IaSKfJ5-8D8ns3Y5H5YcH88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360375269444-44fnk3k18lhd2qhjp79iif42h73n9u5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360375269444-eivvs34puc15996sssv9gh8qisa6dsq9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teguh.flightGuh02"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

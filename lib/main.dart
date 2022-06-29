@@ -1,4 +1,5 @@
 import 'package:flight_guh_02/cubit/page_cubit.dart';
+import 'package:flight_guh_02/services/myroute_observer.dart';
 import 'package:flight_guh_02/ui/screens/bonus_screens.dart';
 import 'package:flight_guh_02/ui/screens/checkout_screens.dart';
 import 'package:flight_guh_02/ui/screens/choose_seat_screens.dart';
@@ -15,13 +16,13 @@ import 'shared/theme.dart';
 
 void main() async {
 /**to avoid display orientation flutter */
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   /** * HIDE system overlay android on bottom */
-  await SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: kTransparentColor));
+  // await SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  // SystemChrome.setSystemUIOverlayStyle(
+  //     SystemUiOverlayStyle(statusBarColor: kTransparentColor));
   runApp(MyApp());
 }
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [MyRouteObserver()],
         routes: {
           '/': (context) => SplashScreens(),
           '/get-started': (context) => GetStartedScreens(),

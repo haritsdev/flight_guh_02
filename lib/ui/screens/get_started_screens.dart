@@ -1,6 +1,7 @@
 import 'package:flight_guh_02/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/theme.dart';
 
 class GetStartedScreens extends StatefulWidget {
@@ -13,10 +14,17 @@ class GetStartedScreens extends StatefulWidget {
 class _GetStartedScreensState extends State<GetStartedScreens> {
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: kTransparentColor));
     super.initState();
+    navigateToLastPage();
+  }
+
+  void navigateToLastPage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String lastRoute = prefs.getString('last_route')!;
+    // No need to push to another screen, if the last route was root
+    if (lastRoute.isNotEmpty && lastRoute != '/') {
+      Navigator.of(context).pushNamed(lastRoute);
+    }
   }
 
   @override
