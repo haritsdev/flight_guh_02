@@ -12,9 +12,9 @@ class MainScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /** * HIDE system overlay android on bottom */
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: kTransparentColor));
+    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    // SystemChrome.setSystemUIOverlayStyle(
+    //     SystemUiOverlayStyle(statusBarColor: kTransparentColor));
 
     return Scaffold(
       backgroundColor: kBackgroundColor,

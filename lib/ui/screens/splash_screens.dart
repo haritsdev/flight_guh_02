@@ -23,7 +23,7 @@ class _SplashScreensState extends State<SplashScreens> {
   @override
   Widget build(BuildContext context) {
     /** * HIDE system overlay android on bottom */
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Center(

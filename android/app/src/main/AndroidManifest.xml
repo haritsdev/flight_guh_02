@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flight_guh_02">
+    package="com.teguh.flight_guh_02">
    <application
         android:label="flight_guh_02"
         android:icon="@mipmap/ic_launcher">
