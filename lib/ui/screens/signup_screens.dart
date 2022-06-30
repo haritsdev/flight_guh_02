@@ -1,12 +1,20 @@
+import 'package:flight_guh_02/cubit/auth_cubit.dart';
 import 'package:flight_guh_02/ui/widgets/custom_button.dart';
 import 'package:flight_guh_02/ui/widgets/custom_tac_button.dart';
 import 'package:flight_guh_02/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme.dart';
 
 class SignUpScreens extends StatelessWidget {
-  const SignUpScreens({Key? key}) : super(key: key);
+  SignUpScreens({Key? key}) : super(key: key);
+
+  final TextEditingController emailController = TextEditingController(text: '');
+  final TextEditingController nameController = TextEditingController(text: '');
+  final TextEditingController passwordController =
+      TextEditingController(text: '');
+  final TextEditingController hobbyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +23,7 @@ class SignUpScreens extends StatelessWidget {
 
     Widget title() {
       return Container(
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 30),
         child: Text(
           'Join us and get\nyour next journey',
           style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
@@ -24,12 +32,35 @@ class SignUpScreens extends StatelessWidget {
     }
 
     Widget submitButton() {
-      return CustomButton(
-        title: 'Get Started',
-        width: double.infinity,
-        height: 55,
-        onPressed: () {
-          Navigator.pushNamed(context, '/bonus');
+      return BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/bonus', (route) => false);
+          } else if (state is AuthFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: kRedColor, content: Text(state.error)));
+          }
+        },
+        builder: (context, state) {
+          //LOADING
+          if (state is AuthLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return CustomButton(
+            title: 'Get Started',
+            width: double.infinity,
+            height: 55,
+            onPressed: () {
+              context.read<AuthCubit>().signUp(
+                  email: emailController.text,
+                  password: passwordController.text,
+                  name: nameController.text,
+                  hobby: hobbyController.text);
+            },
+          );
         },
       );
     }
@@ -39,6 +70,7 @@ class SignUpScreens extends StatelessWidget {
         return CustomTextFormField(
           title: 'Email Address',
           hintText: 'Your Email Address',
+          controller: nameController,
         );
       }
 
@@ -80,20 +112,28 @@ class SignUpScreens extends StatelessWidget {
   }
 
   Widget fullnameInput() {
-    return CustomTextFormField(title: 'Fullname', hintText: 'Your Fullname');
+    return CustomTextFormField(
+        title: 'Fullname',
+        controller: nameController,
+        hintText: 'Your Fullname');
   }
-}
 
-Widget passwordInput() {
-  return CustomTextFormField(
-    title: 'Password',
-    hintText: 'Your Password',
-    obsecureText: true,
-  );
-}
+  Widget passwordInput() {
+    return CustomTextFormField(
+      title: 'Password',
+      hintText: 'Your Password',
+      controller: passwordController,
+      obsecureText: true,
+    );
+  }
 
-Widget hobbyInput() {
-  return CustomTextFormField(title: 'Hobby', hintText: 'Your Hobby');
+  Widget hobbyInput() {
+    return CustomTextFormField(
+      title: 'Hobby',
+      hintText: 'Your Hobby',
+      controller: hobbyController,
+    );
+  }
 }
 
 Widget tacButton() {
