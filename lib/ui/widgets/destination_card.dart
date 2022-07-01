@@ -1,18 +1,12 @@
+import 'package:airplane/models/destination_model.dart';
+
 import '../../shared/theme.dart';
 import '../../ui/screens/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class DestinationCard extends StatelessWidget {
-  final String title;
-  final String location;
-  final String imageUrl;
-  final double rating;
-  const DestinationCard(
-      {Key? key,
-      required this.title,
-      required this.location,
-      required this.imageUrl,
-      this.rating = 0.0})
+  final DestinationModel destination;
+  const DestinationCard({Key? key, required this.destination})
       : super(key: key);
 
   @override
@@ -40,7 +34,8 @@ class DestinationCard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(imageUrl))),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(destination.imageUrl))),
               child: Align(
                 alignment: Alignment.topRight,
                 child: Container(
@@ -66,7 +61,7 @@ class DestinationCard extends StatelessWidget {
                         width: 3,
                       ),
                       Text(
-                        rating.toString(),
+                        destination.rating.toString(),
                         style: blackTextStyle.copyWith(fontWeight: medium),
                       )
                     ],
@@ -80,7 +75,7 @@ class DestinationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    destination.name,
                     style:
                         blackTextStyle.copyWith(fontSize: 18, fontWeight: bold),
                   ),
@@ -88,7 +83,7 @@ class DestinationCard extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    location,
+                    destination.city,
                     style: greyTextStyle.copyWith(fontWeight: light),
                   ),
                 ],

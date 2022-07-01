@@ -1,18 +1,12 @@
+import 'package:airplane/models/destination_model.dart';
+
 import '../../shared/theme.dart';
 import '../../ui/screens/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class DestinationTile extends StatelessWidget {
-  final String name;
-  final String city;
-  final String imageUrl;
-  final double rating;
-  const DestinationTile(
-      {Key? key,
-      required this.name,
-      required this.city,
-      required this.imageUrl,
-      this.rating = 0.0})
+  final DestinationModel destination;
+  const DestinationTile({Key? key, required this.destination})
       : super(key: key);
 
   @override
@@ -35,14 +29,15 @@ class DestinationTile extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(defaultRadius),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(imageUrl))),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(destination.imageUrl))),
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    destination.name,
                     style: blackTextStyle.copyWith(
                         fontSize: 18, fontWeight: medium),
                   ),
@@ -50,7 +45,7 @@ class DestinationTile extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    city,
+                    destination.city,
                     style: greyTextStyle.copyWith(fontWeight: light),
                   ),
                 ],
@@ -72,7 +67,7 @@ class DestinationTile extends StatelessWidget {
                   width: 3,
                 ),
                 Text(
-                  rating.toString(),
+                  destination.rating.toString(),
                   style: blackTextStyle.copyWith(fontWeight: medium),
                 )
               ],

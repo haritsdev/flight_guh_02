@@ -1,18 +1,51 @@
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/destination_cubit.dart';
+import 'package:airplane/models/destination_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/theme.dart';
 import '../../ui/widgets/destination_card.dart';
 import '../../ui/widgets/destination_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    context.read<DestinationCubit>().fetchDestinations();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [header(), popularDestinations(), newDestinations()],
+    return BlocConsumer<DestinationCubit, DestinationState>(
+      listener: (context, state) {
+        if (state is DestinationFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(backgroundColor: kRedColor, content: Text(state.error)));
+        }
+      },
+      builder: (context, state) {
+        if (state is DestinationSuccess) {
+          return ListView(
+            children: [
+              header(),
+              popularDestinations(state.destinations),
+              newDestinations(state.destinations)
+            ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 
@@ -71,36 +104,22 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget popularDestinations() {
+  Widget popularDestinations(List<DestinationModel> destinations) {
+    print('TEST-DESTINATIONS');
+    print(destinations);
     return Container(
       margin: EdgeInsets.only(top: 30),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: [
-            DestinationCard(
-                title: 'Lake Ciliwung',
-                location: 'Tanggerang',
-                imageUrl: 'assets/image_destination1.png'),
-            DestinationCard(
-                title: 'White Houses',
-                location: 'Spain',
-                imageUrl: 'assets/image_destination2.png'),
-            DestinationCard(
-                title: 'Hill Heyo',
-                location: 'Monaco',
-                imageUrl: 'assets/image_destination3.png'),
-            DestinationCard(
-                title: 'Menarra',
-                location: 'Japan',
-                imageUrl: 'assets/image_destination4.png')
-          ],
-        ),
+            children: destinations.map((DestinationModel destination) {
+          return DestinationCard(destination: destination);
+        }).toList()),
       ),
     );
   }
 
-  Widget newDestinations() {
+  Widget newDestinations(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(
           top: 25, left: defaultMargin, right: defaultMargin, bottom: 140),
@@ -111,23 +130,10 @@ class HomeScreen extends StatelessWidget {
             'New this year',
             style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
           ),
-          DestinationTile(
-            name: 'Danau Berata',
-            city: 'Singaraja',
-            imageUrl: 'assets/image_destination6.png',
-            rating: 4.5,
-          ),
-          DestinationTile(
-            name: 'Danau Berata',
-            city: 'Singaraja',
-            imageUrl: 'assets/image_destination6.png',
-            rating: 4.5,
-          ),
-          DestinationTile(
-            name: 'Sydney Opera',
-            city: 'Australia',
-            imageUrl: 'assets/image_destination5.jpg',
-            rating: 4.7,
+          Column(
+            children: destinations.map((DestinationModel destination) {
+              return DestinationTile(destination: destination);
+            }).toList(),
           )
         ],
       ),
