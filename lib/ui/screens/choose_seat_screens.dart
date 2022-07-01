@@ -23,7 +23,7 @@ class ChooseSeat extends StatelessWidget {
 
   Widget title() {
     return Container(
-      margin: EdgeInsets.only(top: 25),
+      margin: EdgeInsets.only(top: 35),
       child: Text(
         'Select Your\nFavorite Seat',
         style: blackTextStyle.copyWith(fontWeight: semibold, fontSize: 24),
@@ -33,7 +33,7 @@ class ChooseSeat extends StatelessWidget {
 
   Widget seatStatus() {
     return Container(
-      margin: EdgeInsets.only(top: 25),
+      margin: EdgeInsets.only(top: 20),
       child: Row(
         children: [
           //NOTE : AVAILABLE
@@ -80,7 +80,7 @@ class ChooseSeat extends StatelessWidget {
 
   Widget selectSeat() {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 5),
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       decoration: BoxDecoration(
