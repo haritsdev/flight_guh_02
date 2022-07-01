@@ -1,10 +1,16 @@
+import 'package:airplane/cubit/seat_cubit.dart';
+import 'package:airplane/models/destination_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
 import '../../shared/theme.dart';
 import '../../ui/widgets/custom_button.dart';
 import '../../ui/widgets/seat_item.dart';
 import 'package:flutter/material.dart';
 
 class ChooseSeat extends StatelessWidget {
-  const ChooseSeat({Key? key}) : super(key: key);
+  final DestinationModel destination;
+  const ChooseSeat(this.destination, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +154,10 @@ class ChooseSeat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SeatItem(
-                  status: 2,
+                  id: 'A1',
+                  isAvailable: false,
                 ),
-                SeatItem(status: 2),
+                SeatItem(id: 'B1'),
                 Container(
                   width: 45,
                   height: 45,
@@ -162,10 +169,10 @@ class ChooseSeat extends StatelessWidget {
                   ),
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'C1',
                 ),
                 SeatItem(
-                  status: 2,
+                  id: 'D1',
                 ),
               ],
             ),
@@ -179,9 +186,11 @@ class ChooseSeat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SeatItem(
-                  status: 0,
+                  id: 'A2',
                 ),
-                SeatItem(status: 0),
+                SeatItem(
+                  id: 'B2',
+                ),
                 Container(
                   width: 45,
                   height: 45,
@@ -193,10 +202,10 @@ class ChooseSeat extends StatelessWidget {
                   ),
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'C2',
                 ),
                 SeatItem(
-                  status: 2,
+                  id: 'D2',
                 ),
               ],
             ),
@@ -210,9 +219,9 @@ class ChooseSeat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SeatItem(
-                  status: 1,
+                  id: 'A3',
                 ),
-                SeatItem(status: 1),
+                SeatItem(id: 'B3'),
                 Container(
                   width: 45,
                   height: 45,
@@ -224,10 +233,10 @@ class ChooseSeat extends StatelessWidget {
                   ),
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'C3',
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'D3',
                 ),
               ],
             ),
@@ -241,9 +250,9 @@ class ChooseSeat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SeatItem(
-                  status: 0,
+                  id: 'A4',
                 ),
-                SeatItem(status: 2),
+                SeatItem(id: 'B4'),
                 Container(
                   width: 45,
                   height: 45,
@@ -255,10 +264,10 @@ class ChooseSeat extends StatelessWidget {
                   ),
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'C4',
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'D4',
                 ),
               ],
             ),
@@ -272,9 +281,11 @@ class ChooseSeat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SeatItem(
-                  status: 0,
+                  id: 'A5',
                 ),
-                SeatItem(status: 0),
+                SeatItem(
+                  id: 'B5',
+                ),
                 Container(
                   width: 45,
                   height: 45,
@@ -286,42 +297,64 @@ class ChooseSeat extends StatelessWidget {
                   ),
                 ),
                 SeatItem(
-                  status: 2,
+                  id: 'C5',
                 ),
                 SeatItem(
-                  status: 0,
+                  id: 'D5',
                 ),
               ],
             ),
           ),
 
           //NOTE YOUR SEAT
-          Container(
-            margin: EdgeInsets.only(top: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Your Seat',
-                    style: greyTextStyle.copyWith(fontWeight: light)),
-                Text('A3, B3',
-                    style: blackTextStyle.copyWith(
-                        fontWeight: semibold, fontSize: 16))
-              ],
-            ),
+          BlocBuilder<SeatCubit, List<String>>(
+            builder: (context, state) {
+              return Container(
+                margin: EdgeInsets.only(top: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Your Seat',
+                        style: greyTextStyle.copyWith(fontWeight: light)),
+                    Container(
+                      width: 150,
+                      child: Expanded(
+                        child: Text(state.join(', '),
+                            textAlign: TextAlign.right,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: blackTextStyle.copyWith(
+                                fontWeight: semibold, fontSize: 16)),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
 
           //NOTE TOTAL
-          Container(
-            margin: EdgeInsets.only(top: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Total', style: greyTextStyle.copyWith(fontWeight: light)),
-                Text('IDR 5.400.000',
-                    style: purpleTextStyle.copyWith(
-                        fontWeight: semibold, fontSize: 16))
-              ],
-            ),
+          BlocBuilder<SeatCubit, List<String>>(
+            builder: (context, state) {
+              return Container(
+                margin: EdgeInsets.only(top: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total',
+                        style: greyTextStyle.copyWith(fontWeight: light)),
+                    Text(
+                      NumberFormat.currency(
+                              locale: 'id', symbol: 'IDR ', decimalDigits: 0)
+                          .format(state.length * destination.price),
+                      style: purpleTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semibold),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
