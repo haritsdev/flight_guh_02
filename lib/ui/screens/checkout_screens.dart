@@ -1,8 +1,8 @@
-import 'package:flight_guh_02/shared/theme.dart';
-import 'package:flight_guh_02/ui/widgets/booking_detail_item.dart';
-import 'package:flight_guh_02/ui/widgets/card_pay.dart';
-import 'package:flight_guh_02/ui/widgets/custom_button.dart';
-import 'package:flight_guh_02/ui/widgets/custom_tac_button.dart';
+import '../../shared/theme.dart';
+import '../../ui/widgets/booking_detail_item.dart';
+import '../../ui/widgets/card_pay.dart';
+import '../../ui/widgets/custom_button.dart';
+import '../../ui/widgets/custom_tac_button.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatelessWidget {

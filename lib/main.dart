@@ -1,30 +1,25 @@
+import 'package:airplane/ui/screens/checkout_screens.dart';
+import 'package:airplane/ui/screens/get_started_screens.dart';
+import 'package:airplane/ui/screens/main_screens.dart';
+import 'package:airplane/ui/screens/signin_screens.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flight_guh_02/cubit/page_cubit.dart';
-import 'package:flight_guh_02/ui/screens/bonus_screens.dart';
-import 'package:flight_guh_02/ui/screens/checkout_screens.dart';
-import 'package:flight_guh_02/ui/screens/choose_seat_screens.dart';
-import 'package:flight_guh_02/ui/screens/get_started_screens.dart';
-import 'package:flight_guh_02/ui/screens/main_screens.dart';
-import 'package:flight_guh_02/ui/screens/signup_screens.dart';
-import 'package:flight_guh_02/ui/screens/splash_screens.dart';
-import 'package:flight_guh_02/ui/screens/success_checkout_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'cubit/auth_cubit.dart';
+import 'cubit/page_cubit.dart';
 import 'shared/theme.dart';
+import 'ui/screens/bonus_screens.dart';
+import 'ui/screens/choose_seat_screens.dart';
+import 'ui/screens/signup_screens.dart';
+import 'ui/screens/splash_screens.dart';
+import 'ui/screens/success_checkout_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-/**to avoid display orientation flutter */
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-  /** * HIDE system overlay android on bottom */
-  // await SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  // SystemChrome.setSystemUIOverlayStyle(
-  //     SystemUiOverlayStyle(statusBarColor: kTransparentColor));
   runApp(MyApp());
 }
 
@@ -37,7 +32,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => PageCubit(),
-        )
+        ),
+        BlocProvider(create: (context) => AuthCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,6 +41,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreens(),
           '/get-started': (context) => GetStartedScreens(),
           '/sign-up': (context) => SignUpScreens(),
+          '/sign-in': (context) => SignInScreens(),
           '/bonus': (context) => BonusScreens(),
           '/choose-seat': (context) => ChooseSeat(),
           '/checkout': (context) => CheckoutScreen(),

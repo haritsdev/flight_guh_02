@@ -1,7 +1,11 @@
-import 'package:flight_guh_02/ui/screens/home_screen.dart';
-import 'package:flight_guh_02/ui/screens/transaction_screens.dart';
-import 'package:flight_guh_02/ui/screens/wallet_screens.dart';
-import 'package:flight_guh_02/ui/widgets/custom_bottom_navigation_item.dart';
+import 'package:airplane/cubit/page_cubit.dart';
+import 'package:airplane/ui/screens/setting_screens.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../ui/screens/home_screen.dart';
+import '../../ui/screens/transaction_screens.dart';
+import '../../ui/screens/wallet_screens.dart';
+import '../../ui/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../shared/theme.dart';
@@ -11,20 +15,31 @@ class MainScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /** * HIDE system overlay android on bottom */
-    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     SystemUiOverlayStyle(statusBarColor: kTransparentColor));
-
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: Stack(children: [buildContent(), customBottomNavigation()]),
+    return BlocBuilder<PageCubit, int>(
+      builder: (context, currentIndex) {
+        return Scaffold(
+          backgroundColor: kBackgroundColor,
+          body: Stack(
+              children: [buildContent(currentIndex), customBottomNavigation()]),
+        );
+      },
     );
   }
 }
 
-Widget buildContent() {
-  return HomeScreen();
+Widget buildContent(int currentIndex) {
+  switch (currentIndex) {
+    case 0:
+      return HomeScreen();
+    case 1:
+      return TransactionScreen();
+    case 2:
+      return WalletScreens();
+    case 3:
+      return SettingScreen();
+    default:
+      return HomeScreen();
+  }
 }
 
 Widget customBottomNavigation() {
@@ -33,7 +48,7 @@ Widget customBottomNavigation() {
     child: Container(
       width: double.infinity,
       margin: EdgeInsets.only(
-          bottom: 30, left: defaultMargin, right: defaultMargin),
+          bottom: 60, left: defaultMargin, right: defaultMargin),
       height: 60,
       decoration: BoxDecoration(
         color: kWhiteColor,
@@ -52,16 +67,19 @@ Widget customBottomNavigation() {
         children: [
           /*NAVIGATION ITEM BAR HOME*/
           CustomBottomNavigationItem(
+            index: 0,
             imageUrl: 'assets/icon_home.png',
-            isSelected: true,
           ),
 
           /*NAVIGATION ITEM BAR BOOKING*/
-          CustomBottomNavigationItem(imageUrl: 'assets/icon_booking.png'),
+          CustomBottomNavigationItem(
+              index: 1, imageUrl: 'assets/icon_booking.png'),
           /*NAVIGATION ITEM BAR card*/
-          CustomBottomNavigationItem(imageUrl: 'assets/icon_card.png'),
+          CustomBottomNavigationItem(
+              index: 2, imageUrl: 'assets/icon_card.png'),
           /*NAVIGATION ITEM BAR SETTINGS*/
-          CustomBottomNavigationItem(imageUrl: 'assets/icon_settings.png'),
+          CustomBottomNavigationItem(
+              index: 3, imageUrl: 'assets/icon_settings.png'),
         ],
       ),
     ),

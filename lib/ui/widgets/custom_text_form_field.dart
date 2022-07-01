@@ -1,14 +1,16 @@
-import 'package:flight_guh_02/shared/theme.dart';
+import '../../shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String title;
   final String hintText;
   final bool obsecureText;
+  final TextEditingController controller;
   const CustomTextFormField(
       {Key? key,
       required this.title,
       required this.hintText,
+      required this.controller,
       this.obsecureText = false})
       : super(key: key);
 
@@ -25,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
           TextFormField(
               cursorColor: kBlackColor,
+              controller: controller,
               obscureText: obsecureText,
               decoration: InputDecoration(
                   hintText: hintText,

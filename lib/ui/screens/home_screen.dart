@@ -1,10 +1,13 @@
-import 'package:flight_guh_02/shared/theme.dart';
-import 'package:flight_guh_02/ui/widgets/destination_card.dart';
-import 'package:flight_guh_02/ui/widgets/destination_tile.dart';
+import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../shared/theme.dart';
+import '../../ui/widgets/destination_card.dart';
+import '../../ui/widgets/destination_tile.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,49 +17,57 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget header() {
-    return Container(
-      margin:
-          EdgeInsets.only(left: defaultMargin, right: defaultMargin, top: 25),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            margin: EdgeInsets.only(
+                left: defaultMargin, right: defaultMargin, top: 25),
+            child: Row(
               children: [
-                SizedBox(
-                  width: 195,
-                  child: Text(
-                    'Howdy,\nTeguh Muhammad Harits',
-                    maxLines: 2,
-                    softWrap: false,
-                    overflow: TextOverflow.ellipsis,
-                    style: blackTextStyle.copyWith(
-                        fontSize: 23, fontWeight: semibold),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 195,
+                        child: Text(
+                          'Howdy,\n${state.user.name}',
+                          maxLines: 2,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                          style: blackTextStyle.copyWith(
+                              fontSize: 23, fontWeight: semibold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        'Where to fly today?',
+                        style: greyTextStyle.copyWith(
+                            fontSize: 16, fontWeight: light),
+                      )
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 6,
-                ),
-                Text(
-                  'Where to fly today?',
-                  style:
-                      greyTextStyle.copyWith(fontSize: 16, fontWeight: light),
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: AssetImage(
+                        'assets/image_profile.png',
+                      ))),
                 )
               ],
             ),
-          ),
-          Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage(
-                  'assets/image_profile.png',
-                ))),
-          )
-        ],
-      ),
+          );
+        } else {
+          return SizedBox();
+        }
+      },
     );
   }
 

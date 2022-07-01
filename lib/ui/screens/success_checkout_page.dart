@@ -1,5 +1,5 @@
-import 'package:flight_guh_02/shared/theme.dart';
-import 'package:flight_guh_02/ui/widgets/custom_button.dart';
+import '../../shared/theme.dart';
+import '../../ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class SuccessCheckoutScreen extends StatelessWidget {

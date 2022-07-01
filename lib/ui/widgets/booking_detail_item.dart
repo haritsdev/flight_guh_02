@@ -1,4 +1,4 @@
-import 'package:flight_guh_02/shared/theme.dart';
+import '../../shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class BookingDetailsItem extends StatelessWidget {

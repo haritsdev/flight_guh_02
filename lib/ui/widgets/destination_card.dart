@@ -1,5 +1,5 @@
-import 'package:flight_guh_02/shared/theme.dart';
-import 'package:flight_guh_02/ui/screens/detail_page.dart';
+import '../../shared/theme.dart';
+import '../../ui/screens/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class DestinationCard extends StatelessWidget {

@@ -1,20 +1,18 @@
 import '../../cubit/auth_cubit.dart';
-import '../../ui/widgets/custom_button.dart';
-import '../../ui/widgets/custom_tac_button.dart';
-import '../../ui/widgets/custom_text_form_field.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_tac_button.dart';
+import '../widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme.dart';
 
-class SignUpScreens extends StatelessWidget {
-  SignUpScreens({Key? key}) : super(key: key);
+class SignInScreens extends StatelessWidget {
+  SignInScreens({Key? key}) : super(key: key);
 
   final TextEditingController emailController = TextEditingController(text: '');
-  final TextEditingController nameController = TextEditingController(text: '');
   final TextEditingController passwordController =
       TextEditingController(text: '');
-  final TextEditingController hobbyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class SignUpScreens extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 25),
         child: Text(
-          'Join us and get\nyour next journey',
+          'Sign In With your\nexisting account',
           style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
         ),
       );
@@ -36,7 +34,7 @@ class SignUpScreens extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/bonus', (route) => false);
+                context, '/main', (route) => false);
           } else if (state is AuthFailed) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: kRedColor, content: Text(state.error)));
@@ -50,15 +48,14 @@ class SignUpScreens extends StatelessWidget {
           }
 
           return CustomButton(
-            title: 'Get Started',
+            title: 'Sign in',
             width: double.infinity,
             height: 55,
             onPressed: () {
-              context.read<AuthCubit>().signUp(
-                  email: emailController.text,
-                  password: passwordController.text,
-                  hobby: hobbyController.text,
-                  name: nameController.text);
+              context.read<AuthCubit>().signIn(
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
             },
           );
         },
@@ -85,10 +82,8 @@ class SignUpScreens extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              fullnameInput(),
               emailInput(),
               passwordInput(),
-              hobbyInput(),
               submitButton(),
               tacButton(context)
             ],
@@ -97,7 +92,7 @@ class SignUpScreens extends StatelessWidget {
       );
     }
 
-    //* BODY SCREENS SIGNUP
+    //* BODY SCREENS SignIn
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
@@ -106,14 +101,6 @@ class SignUpScreens extends StatelessWidget {
           children: [title(), inputSection()],
         ),
       ),
-    );
-  }
-
-  Widget fullnameInput() {
-    return CustomTextFormField(
-      title: 'Fullname',
-      hintText: 'Your Fullname',
-      controller: nameController,
     );
   }
 
@@ -126,21 +113,13 @@ class SignUpScreens extends StatelessWidget {
     );
   }
 
-  Widget hobbyInput() {
-    return CustomTextFormField(
-      title: 'Hobby',
-      hintText: 'Your Hobby',
-      controller: hobbyController,
-    );
-  }
-
   Widget tacButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/sign-in');
+        Navigator.pop(context);
       },
       child: CustomTacButton(
-        text: 'Have an account? Sigin ',
+        text: 'Dont have an account? Sign Up',
         margin: EdgeInsets.only(top: 50, bottom: 70),
       ),
     );

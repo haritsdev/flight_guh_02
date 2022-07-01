@@ -1,7 +1,7 @@
-import 'package:flight_guh_02/shared/theme.dart';
-import 'package:flight_guh_02/ui/widgets/custom_button.dart';
-import 'package:flight_guh_02/ui/widgets/interest_item.dart';
-import 'package:flight_guh_02/ui/widgets/photo_item.dart';
+import '../../shared/theme.dart';
+import '../../ui/widgets/custom_button.dart';
+import '../../ui/widgets/interest_item.dart';
+import '../../ui/widgets/photo_item.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
